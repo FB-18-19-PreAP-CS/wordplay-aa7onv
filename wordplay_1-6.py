@@ -9,38 +9,73 @@ def at_least():
         print(count_char)
                 
 def has_no_e(word):
-    with open("words.txt") as file:
-        count_no_e = 0
-        for line in file:
-            for word in line.strip().split(' '):
-                if 'e' not in word.lower():
-                    return True
+    ''' returns True if the given word doesn’t have
+the letter “e” in it.
+
+    >>> has_no_e('chickn')
+    True
+    >>> has_no_e('Elphant')
+    False
+    >>> has_no_e('apple')
+    False
+    '''
+    
+    if 'e' not in word.lower():
+        return True
+    else:
+        return False
                 
 def no_e(): 
     with open("words.txt") as file:
         count_no_e = 0
         for line in file:
-                for word in line.strip().split(' '):
-                    if 'e' not in word.lower():
-                        count_no_e += 1
+            for word in line.strip().split(' '):
+                if 'e' not in word.lower():
+                    count_no_e += 1
     
     with open("words.txt") as file:
         num_words = 0
         for line in file:
             for word in line.strip().split(' '):
                 num_words += 1
-        print(count_no_e / num_words)
+        pct = count_no_e / num_words
+        print('{:.2f}%'.format(pct * 100 ))
     
+                             
+def avoids(word, letters):
+    '''  takes a word and a string of forbidden
+letters, and that returns True if the word doesn’t
+use any of the forbidden letters.
+
+    >>> avoids('dog','qwxc')
+    True
+    >>> avoids('dog','dta')
+    False
+    >>> avoids('dog','D ')
+    False
+    '''
+    count_no_e = 0
+    for numlet in word:
+        for x in letters.lower():
+            if x in word.lower():
+                return False
+            else:
+                return True
+                       
+def count_avoids():
+    #abcde = 7990
+    str = input('Enter forbidden letters: ')
+    with open("words.txt") as file:
+        num_words = 0
+        for line in file:
+            for word in line.strip().split(' '):
+                if avoids(line,str):
+                    num_words += 1
+        print(num_words)
                 
                     
-    
                     
-
-def avoids():
-    pass
-def count_avoids():
-    pass
-
+            
 def uses_only(): 
     pass
 
@@ -53,4 +88,8 @@ def how_many_uses_all():
 def is_abecedarian():
     pass
 
-no_e()
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
