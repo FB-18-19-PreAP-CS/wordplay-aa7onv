@@ -53,15 +53,23 @@ use any of the forbidden letters.
     False
     >>> avoids('dog','D ')
     False
+    >>> avoids('Texas','tpr')
+    False
+    >>> avoids('Texas','lmn')
+    True
+    >>> avoids('Longhorn','LHN')
+    False
+    >>> avoids('waffle','dre')
+    False
     '''
     
-    for num in bad_letters:
-        #for let in word:
-        if num in bad_letters:
+    for let in bad_letters:
+        for i in range(len(word)):
+            if let.lower() == word[i].lower():
+                return False
             
-            return False
-        else:
-            return True
+    else:
+        return True
                        
 def count_avoids():
     #abcde = 7990
@@ -75,11 +83,35 @@ def count_avoids():
                     num_words += 1
     print(num_words)
                 
-                    
-                    
+                         
+def uses_only(word, str): 
+    '''
+    >>> uses_only('dog','d')
+    False
+    >>> uses_only('dog','Dgol')
+    True
+    >>> uses_only('Texas','tpr')
+    False
+    >>> uses_only('Texas','tmensxa')
+    True
+    >>> uses_only('Longhorn','LHN')
+    False
+    >>> uses_only('waffle','waffle')
+    True
+    '''
+    count = 0
+    for i in range(len(word)):
+        if word[i].lower() in str.lower():
+            count += 1
+    if count == len(word):
+        return True
             
-def uses_only(): 
+    else:
+        return False           
+
+def words_with_only():
     pass
+            
 
 def uses_all():
     pass
@@ -90,8 +122,11 @@ def how_many_uses_all():
 def is_abecedarian():
     pass
 
+def count_abecedarian():
+    pass
+    
 
 if __name__ == "__main__":
-    #import doctest
-    #doctest.testmod()
-    count_avoids()
+    import doctest
+    doctest.testmod()
+    #count_avoids()
