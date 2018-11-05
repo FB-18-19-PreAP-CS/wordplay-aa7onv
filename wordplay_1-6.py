@@ -1,13 +1,13 @@
 
 def at_least(): 
     with open("words.txt") as file:
-        count_char = 0
+        
         for line in file:
             for word in line.strip().split(' '):
                 if len(word) >= 20:
-                    count_char += 1
-        print(count_char)
-                
+                    print(word)
+                    
+                       
 def has_no_e(word):
     ''' returns True if the given word doesn’t have
 the letter “e” in it.
@@ -30,7 +30,7 @@ def no_e():
         count_no_e = 0
         for line in file:
             for word in line.strip().split(' '):
-                if 'e' not in word.lower():
+                if has_no_e(line):
                     count_no_e += 1
     
     with open("words.txt") as file:
@@ -42,7 +42,7 @@ def no_e():
         print('{:.2f}%'.format(pct * 100 ))
     
                              
-def avoids(word, letters):
+def avoids(word, bad_letters):
     '''  takes a word and a string of forbidden
 letters, and that returns True if the word doesn’t
 use any of the forbidden letters.
@@ -54,24 +54,26 @@ use any of the forbidden letters.
     >>> avoids('dog','D ')
     False
     '''
-    count_no_e = 0
-    for numlet in word:
-        for x in letters.lower():
-            if x in word.lower():
-                return False
-            else:
-                return True
+    
+    for num in bad_letters:
+        #for let in word:
+        if num in bad_letters:
+            
+            return False
+        else:
+            return True
                        
 def count_avoids():
     #abcde = 7990
-    str = input('Enter forbidden letters: ')
+    forbid_let = input('Enter forbidden letters: ')
+ 
     with open("words.txt") as file:
         num_words = 0
         for line in file:
             for word in line.strip().split(' '):
-                if avoids(line,str):
+                if avoids(line,forbid_let):
                     num_words += 1
-        print(num_words)
+    print(num_words)
                 
                     
                     
@@ -90,6 +92,6 @@ def is_abecedarian():
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-    
+    #import doctest
+    #doctest.testmod()
+    count_avoids()
