@@ -11,7 +11,6 @@ def at_least():
 def has_no_e(word):
     ''' returns True if the given word doesn’t have
 the letter “e” in it.
-
     >>> has_no_e('chickn')
     True
     >>> has_no_e('Elphant')
@@ -46,7 +45,6 @@ def avoids(word, bad_letters):
     '''  takes a word and a string of forbidden
 letters, and that returns True if the word doesn’t
 use any of the forbidden letters.
-
     >>> avoids('dog','qwxc')
     True
     >>> avoids('dog','dta')
@@ -98,6 +96,8 @@ def uses_only(word, str):
     False
     >>> uses_only('waffle','waffle')
     True
+    >>> uses_only('cvafef ','adbcefgv ')
+    True
     '''
     count = 0
     for i in range(len(word)):
@@ -105,28 +105,83 @@ def uses_only(word, str):
             count += 1
     if count == len(word):
         return True
+    
+    return False
+    
+        
+def words_with_only(string):
+    with open("words.txt") as file:
+        for line in file:
+            #for word in line.strip().split():
+            if uses_only(line.strip(),string):
+                print(line)
             
-    else:
-        return False           
-
-def words_with_only():
-    pass
+def uses_all(word,string):
+    '''
+    >>> uses_all('dog','dog')
+    True
+    >>> uses_all('elephant','elp')
+    True
+    >>> uses_all('waffle','wafevr')
+    False
+    >>> uses_all('cjacjw ','jjcaw ')
+    True
+    >>> uses_all('chicken','chkn')
+    True
+    '''
+    count = 0
+    lenword = len(string)
+    for let in string:
+        if let in word:
+            count += 1
+    if count >= lenword:
+        return True
+    
+    return False
+   
             
+def how_many_uses_all(reqlet):
+    with open("words.txt") as file:
+        count = 0
+        for line in file:
+            for word in line.strip().split(' '):
+                if uses_all(line.lower(),reqlet.lower()):
+                    count += 1
+    print(count)
+                    
+            
+def is_abecedarian(word):
+    '''
+    >>> is_abecedarian('abc')
+    True
+    >>> is_abecedarian('cba')
+    False
+    >>> is_abecedarian('envelope')
+    False
+    >>> is_abecedarian('abdhlp')
+    True
+    >>> is_abecedarian('abbbbccccdddeee')
+    True
+    '''
 
-def uses_all():
-    pass
-
-def how_many_uses_all():
-    pass
-
-def is_abecedarian():
-    pass
+    for i in range(len(word)-1):
+        if word[i] > word[i+1]:
+            return False
+    return True
+            
 
 def count_abecedarian():
-    pass
+    with open("words.txt") as file:
+        count = 0
+        for line in file:
+            for word in line.strip().split(' '):
+                if is_abecedarian(line.strip()):
+                    count += 1
+        print(count)
     
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-    #count_avoids()
+    #
+
